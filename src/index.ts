@@ -1,5 +1,11 @@
-function saudacao(nome: string): string {
-  return `Olá, ${nome}!`;
-}
+import Animal from "./Animal";
+import RelatorioConsulta from "./RelatorioConsulta";
 
-console.log(saudacao("Maria"));
+const animais: Animal[] = [];
+
+const pet1 = new Animal(1,"Bob", "Pastor Alemão", false ,"Banho e Tosa")
+animais.push(pet1);
+
+RelatorioConsulta.gerarRelatorioConsulta(animais);
+
+pet1.registrarConsulta()

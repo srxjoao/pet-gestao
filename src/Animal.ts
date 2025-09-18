@@ -2,8 +2,8 @@ export default class Animal{
     id: number
     nome: string
     raca:  string
-    tratamento: string
     vacinado: boolean
+    tratamento: string
     
     constructor(id:number, nome:string, raca:string,vacinado:boolean, tratamento:string){
         this.id = id
@@ -12,4 +12,11 @@ export default class Animal{
         this.tratamento = tratamento
         this.vacinado = vacinado
     }
+
+    registrarConsulta():void{
+        this.tratamento
+        this.vacinado
+        console.log(`${this.tratamento} teve uma consulta realizada e tomou vacina? ${this.vacinado}`)
+    }
+
 }
