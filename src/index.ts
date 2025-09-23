@@ -11,5 +11,3 @@ animais.push(pet2)
 
 RelatorioConsulta.gerarRelatorioConsulta(animais);
 
-pet1.registrarConsulta()
-pet2.registrarConsulta()
