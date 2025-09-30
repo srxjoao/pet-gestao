@@ -1,13 +1,11 @@
-# 🐾 Pet Gestão
+#  Pet Gestão 🐾
 
 Um projeto em **Node.js + TypeScript** para gerenciamento de informações relacionadas a pets, com execução automatizada para desenvolvimento.
 
 ## 🚀 Tecnologias
+[![My Skills](https://skillicons.dev/icons?i=typescript,nodejs,ts-node)](https://skillicons.dev)
 
-- **Node.js** – Ambiente de execução JavaScript
-- **TypeScript** – Superset de JavaScript com tipagem estática
-- **Nodemon** – Reinício automático em ambiente de desenvolvimento
-- **ts-node** – Execução de arquivos TypeScript sem compilação prévia
+---
 
 ## 📂 Estrutura do Projeto
 
@@ -55,6 +53,10 @@ O comando acima utiliza **nodemon** e **ts-node**, monitorando alterações no d
 A configuração do TypeScript está definida em `tsconfig.json`.  
 A entrada principal do projeto é `src/index.ts`.
 
-## 📌 Licença
+## 🧑 Aluno
 
-Este projeto está licenciado sob a licença **ISC**. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+- João Pedro de Oliveira Barbosa
+
+## 🧑‍🏫 Professor
+
+- André Luís Violin - Linguagens e Técnicas de Programação
