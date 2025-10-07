@@ -1,19 +1,30 @@
-import Animal from "./Animal"
-export default class Consulta{
-    id: number
-    tipoConsulta: string
-    petId: number
-    veterinario: string 
-    animais: Animal[] = [];
+import Animal from "./Animal";
+import Dono from "./Dono";
 
-    constructor(id:number, tipoConsulta:string, petId:number,veterinario:string){
-        this.id = id
-        this.tipoConsulta = tipoConsulta
-        this.petId = petId
-        this.veterinario = veterinario
-    }
+export default class Consulta {
+    id: number;
+    tipoConsulta: string;
+    veterinario: string;
+    animal: Animal;  // Apenas um animal por consulta
+    tutor: Dono;
+    data: string;    // Ex: "2025-10-06"
+    hora: string;    // Ex: "14:30"
 
-    registarConsulta():void{
-        this.animais.forEach((animal)=> animal.registrarConsulta());
+    constructor(
+        id: number,
+        tipoConsulta: string,
+        animal: Animal,
+        veterinario: string,
+        tutor: Dono,
+        data: string,
+        hora: string
+    ) {
+        this.id = id;
+        this.tipoConsulta = tipoConsulta;
+        this.veterinario = veterinario;
+        this.animal = animal;
+        this.tutor = tutor;
+        this.data = data;
+        this.hora = hora;
     }
 }
