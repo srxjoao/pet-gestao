@@ -1,9 +1,9 @@
 import Animal from "./Animal";
 import Dono from "./Dono";
+import { ConsultaDuplicadoError } from "./errors/ConsultaError";
 
 export default class Consulta {
-  public id: number; // único privado
-
+  public id: number;
   public tipoConsulta: string;
   public veterinario: string;
   public animal: Animal;
@@ -18,8 +18,21 @@ export default class Consulta {
     veterinario: string,
     tutor: Dono,
     data: string,
-    hora: string
+    hora: string,
+    consultasExistentes: Consulta[] = []
   ) {
+
+    const consultaDuplicada = consultasExistentes.some(
+      (c) =>
+        c.animal.id === animal.id &&
+        c.data === data &&
+        c.hora === hora
+    );
+
+    if (consultaDuplicada) {
+      throw new ConsultaDuplicadoError(animal.id);
+    }
+
     this.id = id;
     this.tipoConsulta = tipoConsulta;
     this.veterinario = veterinario;

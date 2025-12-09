@@ -4,10 +4,9 @@ import Consulta from "./Consulta";
 import RelatorioConsulta from "./RelatorioConsulta";
 
 import { DadosInvalidosError, AnimalError } from "./errors/AnimalError";
+import {ConsultaDuplicadoError,ConsultaError} from "./errors/ConsultaError"
 
-// ----------------------------
 // LISTA DE DONOS
-// ----------------------------
 const donos: Dono[] = [];
 
 try {
@@ -16,22 +15,13 @@ try {
   donos.push(new Dono(3, "Brenda Thereza", "97777-9101"));
   donos.push(new Dono(4, "Rayssa Martins", "94002-8922"));
 
-  // Teste de erro: nome vazio
-  // donos.push(new Dono(5, "", "90000-0000"));
-
 } catch (error) {
   if (error instanceof DadosInvalidosError) {
     console.error(`❌ Erro ao criar dono: ${error.message}`);
-    process.exit(1);
-  } else {
-    console.error(`❌ Erro inesperado: ${error}`);
-    process.exit(1);
   }
 }
 
-// ----------------------------
 // LISTA DE ANIMAIS
-// ----------------------------
 const animais: Animal[] = [];
 
 try {
@@ -40,22 +30,13 @@ try {
   animais.push(new Animal(3, "Shuba", "Dálmata", false, "Vacinação"));
   animais.push(new Animal(4, "Muttley", "Shitizu", true, "Castração"));
 
-  // Teste de erro: ID inválido
-  // const animalErro = new Animal(-3, "Teste", "SRD", false, "Vacinação");
-
 } catch (error) {
   if (error instanceof DadosInvalidosError) {
     console.error(`❌ Erro ao criar animal: ${error.message}`);
-    process.exit(1);
-  } else {
-    console.error(`❌ Erro inesperado: ${error}`);
-    process.exit(1);
   }
 }
 
-// ----------------------------
 // CADASTRO DE CONSULTAS
-// ----------------------------
 
 const consultas: Consulta[] = [];
 
@@ -68,7 +49,8 @@ try {
       "Dra. Manuela Pacheco",
       donos[0],
       "2025-10-06",
-      "09:30"
+      "09:30",
+      consultas // ← VERIFICA DUPLICIDADE
     )
   );
 
@@ -80,7 +62,8 @@ try {
       "Dra. Josefina Alves",
       donos[1],
       "2025-10-06",
-      "10:15"
+      "10:15",
+      consultas
     )
   );
 
@@ -92,7 +75,34 @@ try {
       "Dr. Roberto Carlos",
       donos[2],
       "2025-10-06",
-      "11:00"
+      "11:00",
+      consultas
+    )
+  );
+
+    consultas.push(
+    new Consulta(
+      3,
+      "Vacinação",
+      animais[2],
+      "Dr. Roberto Carlos",
+      donos[2],
+      "2025-10-06",
+      "11:00",
+      consultas
+    )
+  );
+
+    consultas.push(
+    new Consulta(
+      4,
+      "Castração",
+      animais[3],
+      "Dra. Eduarda Teixeira",
+      donos[3],
+      "2025-10-07",
+      "14:25",
+      consultas
     )
   );
 
@@ -104,12 +114,10 @@ try {
       "Dra. Eduarda Teixeira",
       donos[3],
       "2025-10-07",
-      "14:25"
+      "14:25",
+      consultas
     )
   );
-
-  // Teste de erro: Dono não existe
-  // const consultaErro = new Consulta(5, "Consulta Teste", animais[0], "Dr. X", new Dono(99, "Erro", "123"), "2025-10-01", "12:00");
 
 } catch (error) {
   if (error instanceof AnimalError) {
@@ -119,14 +127,11 @@ try {
   }
 }
 
-// ----------------------------
-// RELATÓRIOS (igual ao sistema anterior)
-// ----------------------------
-
+// RELATÓRIO INICIAL
 console.log("\n📄 Relatório inicial:");
 RelatorioConsulta.gerarRelatorioConsultas(consultas);
 
-// Buscar animal (igual ao buscar estudante)
+// Buscar animal
 try {
   const animalEncontrado = animais.find(a => a.id === 1);
   if (!animalEncontrado) throw new AnimalError("Animal não encontrado!");
@@ -142,22 +147,34 @@ try {
   }
 }
 
-// Relatório novamente
+// Relatório após buscas
 console.log("\n📄 Relatório após buscas:");
 RelatorioConsulta.gerarRelatorioConsultas(consultas);
 
-// Registrar nova consulta e gerar relatório novamente
-const novaConsulta = new Consulta(
-  5,
-  "Revisão Pós-Cirúrgica",
-  animais[0],
-  "Dra. Alice Medeiros",
-  donos[0],
-  "2025-10-10",
-  "08:45"
-);
+// Registrar nova consulta (validando duplicidade)
+try {
+  const novaConsulta = new Consulta(
+    5,       
+    "Revisão Pós-Cirúrgica",
+    animais[0],
+    "Dra. Alice Medeiros",
+    donos[0],
+    "2025-10-10",
+    "08:45"
+  );
 
-consultas.push(novaConsulta);
+  consultas.push(novaConsulta);
 
+} catch (error) {
+  if (error instanceof Error) {
+    console.error(`❌ Erro ao registrar nova consulta: ${error.message}`);
+  } else {
+    console.error("❌ Erro ao registrar nova consulta: erro desconhecido.");
+  }
+}
+
+
+
+// Relatório final
 console.log("\n📄 Relatório final:");
 RelatorioConsulta.gerarRelatorioConsultas(consultas);

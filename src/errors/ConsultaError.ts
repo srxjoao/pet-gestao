@@ -12,9 +12,9 @@ export class ConsultaEsgotadasError extends ConsultaError{
     }
 }
 
-export class AnimalDuplicadoError extends ConsultaError {
-    constructor(nomeAnimal: string){
-        super(`Animal ${nomeAnimal} já possui consulta agendada.`);
-        this.name = "AnimalDuplicadoError"
+export class ConsultaDuplicadoError extends ConsultaError {
+    constructor(id: number){
+        super(`Animal ${id} já possui consulta agendada.`);
+        this.name = "ConsultaDuplicadoError"
     }
 }
